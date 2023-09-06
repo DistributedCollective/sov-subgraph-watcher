@@ -1,4 +1,4 @@
-FROM node:16-alpine AS base
+FROM node:18.16.1 as base
 
 WORKDIR /app
 
@@ -8,23 +8,29 @@ WORKDIR /app
 FROM base AS builder
 
 COPY package*.json ./
+COPY yarn.lock ./
+COPY ./prisma ./prisma
 
-RUN npm install
+RUN yarn install --ignore-engines --only=production
 
 COPY ./ ./
 
-RUN npm run build
-
-# Remove dev dependencies
-RUN npm prune --production 
+RUN yarn build
 
 # ---------- Release ----------
 FROM base AS release
 
+COPY --from=builder /app/package.json ./
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/build ./build
+COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/scripts ./scripts
 
 USER node
-EXPOSE 3000
-CMD ["node", "./dist/server.js"]
 
+ENV NODE_ENV production
+ENV NODE_PATH ./build
+
+EXPOSE 3000
+
+CMD ["/bin/bash", "-c", "./scripts/start.sh"]

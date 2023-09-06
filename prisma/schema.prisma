@@ -1,0 +1,28 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model KeyValue {
+  key String @unique @id @db.VarChar(64)
+  value String @db.VarChar(64)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TaskBlock {
+  id    String    @unique @id @db.VarChar(128)
+  block Int       @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Proposal {
+  id   String    @unique @id @db.VarChar(64)
+  createdAt DateTime @default(now())
+}
