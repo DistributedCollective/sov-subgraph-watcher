@@ -1,0 +1,17 @@
+{
+  "app_name": "sov-subgraph-watcher",
+  "aws_region": "us-east-2",
+  "k8s_cluster_name": "k8-mainnet",
+  "registry": "docker.io",
+  "image_name": "sovryn/sov-subgraph-watcher",
+  "prod_branch": "main",
+  "dev_branch": "development",
+  "dockerfile_path": ".",
+  "APP_ENV_VARS": {
+    "APP_NAME": "sov-subgraph-watcher",
+    "LOG_LEVEL": "debug",
+    "PORT": "3000",
+    "POSTGRES_PORT": "5432",
+    "POSTGRES_DB": "sov-subgraph-watcher-main"
+  }
+}

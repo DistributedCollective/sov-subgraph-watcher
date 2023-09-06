@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  generation: 1
+  labels:
+    app: sov-subgraph-watcher
+  name: sov-subgraph-watcher
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: sov-subgraph-watcher
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: sov-subgraph-watcher
+    spec:
+      containers:
+      - image: sovryn/sov-subgraph-watcher
+        imagePullPolicy: Always
+        name: sov-subgraph-watcher
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        envFrom:
+        - secretRef:
+            name: sov-subgraph-watcher
+        - secretRef:
+            name: sov-subgraph-watcher-secrets
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sov-subgraph-watcher
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-2:768438872063:certificate/9fa02b26-0ee5-4301-bdd6-8474344885ff
+spec:
+  selector:
+    app: sov-subgraph-watcher
+  ports:
+    - port: 443
+      targetPort: 3000
+  type: LoadBalancer
