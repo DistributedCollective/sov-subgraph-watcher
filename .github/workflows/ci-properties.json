@@ -10,15 +10,18 @@
   "APP_ENV_VARS": {
     "APP_NAME": "sov-subgraph-watcher",
     "LOG_LEVEL": "debug",
-    "PORT": "3000"
+    "PORT": "3000",
+    "POSTGRES_PORT": "5432"
   },
   "DEV_ENV_VARS": {
     "NODE_ENV": "development",
+    "POSTGRES_DB": "sov-subgraph-watcher-test",
     "SUBGRAPH_URL": "https://subgraph.test.sovryn.app/subgraphs/name/DistributedCollective/sovryn-subgraph",
     "NOTIFICATION_SERVICE_URL": "http://sov-notification-service-notify:8082"
   },
   "PROD_ENV_VARS": {
     "NODE_ENV": "production",
+    "POSTGRES_DB": "sov-subgraph-watcher-test",
     "SUBGRAPH_URL": "https://subgraph.sovryn.app/subgraphs/name/DistributedCollective/sovryn-subgraph",
     "NOTIFICATION_SERVICE_URL": "http://sov-notification-service-notify:8082"
   }
