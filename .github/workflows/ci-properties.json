@@ -21,7 +21,7 @@
   },
   "PROD_ENV_VARS": {
     "NODE_ENV": "production",
-    "POSTGRES_DB": "sov-subgraph-watcher-test",
+    "POSTGRES_DB": "sov-subgraph-watcher-main",
     "SUBGRAPH_URL": "https://subgraph.sovryn.app/subgraphs/name/DistributedCollective/sovryn-subgraph",
     "NOTIFICATION_SERVICE_URL": "http://sov-notification-service-notify:8082"
   }
