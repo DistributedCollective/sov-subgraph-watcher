@@ -74,7 +74,7 @@ function sendSipAlertsToDiscord(): TaskInterface {
             const alert: Partial<Embed> = {
               title: proposal.description.substring(0, 64),
               url: `https://sovryn.app/bitocracy/${proposal.id}`,
-              description: proposal.description.substring(0, 2048),
+              description: proposal.description.substring(0, 512),
               color: 0x00ff00,
               fields: [
                 {
