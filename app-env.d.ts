@@ -5,5 +5,7 @@ declare namespace NodeJS {
     DATABASE_URL: string;
     SUBGRAPH_URL: string;
     NOTIFICATION_SERVICE_URL: string;
+    DISCORD_WEBHOOK_URL: string;
+    IS_TESTNET: 'true' | 'false';
   }
 }

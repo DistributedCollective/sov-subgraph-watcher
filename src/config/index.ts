@@ -96,6 +96,19 @@ const config = convict({
       arg: 'block-time',
     },
   },
+  isTestnet: {
+    doc: 'The testnet flag.',
+    format: Boolean,
+    default: false,
+    env: 'IS_TESTNET',
+    arg: 'testnet',
+  },
+  discordWebhookUrlForSip: {
+    doc: 'The discord webhook url for sip.',
+    format: String,
+    default: null,
+    env: 'DISCORD_WEBHOOK_URL',
+  },
 });
 
 try {

@@ -69,6 +69,8 @@ class TaskRunner {
       })
       .catch((error) => {
         log.warn(`task ${task.id} failed on block ${pendingBlock}`, error?.message ?? error);
+        // eslint-disable-next-line no-console
+        console.error(error);
       });
   }
 

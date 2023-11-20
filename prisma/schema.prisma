@@ -26,3 +26,8 @@ model Proposal {
   id   String    @unique @id @db.VarChar(64)
   createdAt DateTime @default(now())
 }
+
+model ProposalForAlert {
+  id   String    @unique @id @db.VarChar(64)
+  createdAt DateTime @default(now())
+}
