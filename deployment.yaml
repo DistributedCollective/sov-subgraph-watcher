@@ -25,7 +25,13 @@ spec:
       - image: sovryn/sov-subgraph-watcher
         imagePullPolicy: Always
         name: sov-subgraph-watcher
-        resources: {}
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "400m"
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         envFrom:
@@ -40,18 +46,3 @@ spec:
       terminationGracePeriodSeconds: 30
       imagePullSecrets:
         - name: regcred
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: sov-subgraph-watcher
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
-    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-2:768438872063:certificate/9fa02b26-0ee5-4301-bdd6-8474344885ff
-spec:
-  selector:
-    app: sov-subgraph-watcher
-  ports:
-    - port: 443
-      targetPort: 3000
-  type: LoadBalancer
